@@ -1,0 +1,111 @@
+{
+  "nodes": [
+    {
+      "id":"core",
+      "label":"5G CORE",
+      "type":"core"
+    },
+
+    {
+      "id":"ran",
+      "label":"RAN",
+      "type":"ran"
+    },
+
+    {
+      "id":"ims",
+      "label":"IMS",
+      "type":"ims"
+    },
+
+    {
+      "id":"upf",
+      "label":"UPF",
+      "type":"upf"
+    },
+
+    {
+      "id":"gnb1",
+      "label":"gNB-001:01:000ff19",
+      "type":"gnb"
+    },
+
+    {
+      "id":"gnb2",
+      "label":"gNB-001:01:000000b",
+      "type":"gnb"
+    },
+
+    {
+      "id":"gnb3",
+      "label":"gNB-001:01:000fff8",
+      "type":"gnb"
+    },
+
+    {
+      "id":"gnb4",
+      "label":"gNB-001:01:000fff4",
+      "type":"gnb"
+    },
+
+    {
+      "id":"gnb5",
+      "label":"gNB-001:01:000001f",
+      "type":"gnb"
+    },
+
+    {
+      "id":"upf_instance",
+      "label":"upf",
+      "type":"upf_instance"
+    }
+  ],
+
+  "edges":[
+
+    {
+      "source":"core",
+      "target":"ran"
+    },
+
+    {
+      "source":"core",
+      "target":"ims"
+    },
+
+    {
+      "source":"core",
+      "target":"upf"
+    },
+
+    {
+      "source":"ran",
+      "target":"gnb1"
+    },
+
+    {
+      "source":"ran",
+      "target":"gnb2"
+    },
+
+    {
+      "source":"ran",
+      "target":"gnb3"
+    },
+
+    {
+      "source":"ran",
+      "target":"gnb4"
+    },
+
+    {
+      "source":"ran",
+      "target":"gnb5"
+    },
+
+    {
+      "source":"upf",
+      "target":"upf_instance"
+    }
+  ]
+}

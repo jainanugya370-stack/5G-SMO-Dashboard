@@ -1,0 +1,16 @@
+apiVersion: 1
+
+datasources:
+  - name: 5G-SMO-API
+    # marcusolsson-json-datasource plugin
+    type: marcusolsson-json-datasource
+    uid: bfnbcxajfec5cb
+    access: proxy
+    # In Docker, the backend container is reachable by its service name
+    url: http://backend:5000
+    isDefault: true
+    editable: false
+    version: 1
+    jsonData:
+      # Explicit timeouts for datasource queries
+      timeoutSeconds: 10

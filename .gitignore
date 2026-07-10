@@ -1,0 +1,80 @@
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python build
+build/
+dist/
+*.egg-info/
+
+# ==========================
+# IDEs
+# ==========================
+.idea/
+.vscode/
+*.iml
+
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Logs
+# ==========================
+*.log
+logs/
+
+# ==========================
+# Environment Variables
+# ==========================
+.env
+.env.*
+!.env.example
+
+# ==========================
+# Docker
+# ==========================
+docker-data/
+*.pid
+
+# ==========================
+# Grafana
+# ==========================
+grafana/data/
+grafana/plugins/
+
+# ==========================
+# Runtime / Cache
+# ==========================
+.pytest_cache/
+.mypy_cache/
+.cache/
+
+# ==========================
+# Jupyter
+# ==========================
+.ipynb_checkpoints/
+
+# ==========================
+# Temporary Files
+# ==========================
+*.tmp
+*.bak
+*.swp
+
+# ==========================
+# Generated Backend Data
+# ==========================
+backend/data/*
+!backend/data/.gitkeep

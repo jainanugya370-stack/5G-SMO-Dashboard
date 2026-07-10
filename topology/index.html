@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>5G Network Topology</title>
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html, body {
+            width:100%; height:100%;
+            background: linear-gradient(135deg,#0a0f1e 0%,#1a0a2e 50%,#0d1b3e 100%);
+            font-family:'Segoe UI',sans-serif; color:white;
+            overflow:hidden;
+        }
+        .title {
+            text-align:center; font-size:20px; font-weight:bold;
+            padding:10px 0 4px; color:#63d6ff;
+            letter-spacing:3px; text-transform:uppercase;
+        }
+        #cy { width:100%; height:calc(100vh - 76px); display:block; }
+        .legend {
+            position:fixed; bottom:6px; left:0; right:0;
+            display:flex; justify-content:center; gap:24px;
+        }
+        .legend-item { display:flex; align-items:center; gap:6px; font-size:11px; color:#ccc; }
+        .legend-box  { width:12px; height:12px; border-radius:3px; }
+        .legend-box.healthy { background:#00ff88; }
+        .legend-box.warning { background:#ff4d4d; }
+        #status { position:fixed; bottom:0; right:8px; font-size:9px; color:#444; }
+    </style>
+</head>
+<body>
+
+<div class="title">5G Network Topology</div>
+<div id="cy"></div>
+<div class="legend">
+    <div class="legend-item"><div class="legend-box healthy"></div>Healthy / Active</div>
+    <div class="legend-item"><div class="legend-box warning"></div>Warning / Inactive</div>
+</div>
+<div id="status">Connecting...</div>
+
+<script>
+const API = window.location.protocol + "//" + window.location.hostname + ":5000/api/topology";
+const POLL_MS = 5000;
+let cy = null;
+
+function computePositions(nodes) {
+    const W  = Math.max(window.innerWidth || 800, 600);
+    const cx = W / 2;
+    const pos = {};
+
+    const cores = nodes.filter(n => n.type === "core");
+    const ims   = nodes.filter(n => n.type === "ims");
+    const gnbs  = nodes.filter(n => n.type === "gnb");
+    const ues   = nodes.filter(n => n.type === "ue");
+
+    const Y_CORE = 60;
+    const Y_IMS  = 190;
+    const Y_GNB  = 310;
+    const Y_UE   = 420;
+
+    // Cores — centered at top
+    const coreGap   = Math.min(180, (W - 100) / Math.max(cores.length, 1));
+    const coreStart = cx - coreGap * (cores.length - 1) / 2;
+    cores.forEach((n, i) => {
+        pos[n.id] = { x: coreStart + i * coreGap, y: Y_CORE };
+    });
+
+    // IMS — centered below cores
+    ims.forEach((n, i) => {
+        pos[n.id] = { x: cx, y: Y_IMS };
+    });
+
+    // gNBs — spread evenly across full width
+    const gnbGap   = Math.min(130, (W - 80) / Math.max(gnbs.length, 1));
+    const gnbStart = cx - gnbGap * (gnbs.length - 1) / 2;
+    gnbs.forEach((n, i) => {
+        pos[n.id] = { x: gnbStart + i * gnbGap, y: Y_GNB };
+    });
+
+    // UEs — grouped under their parent gNB
+    const nGnb = gnbs.length;
+    gnbs.forEach((g, gi) => {
+        const myUEs    = ues.filter((_, ui) => ui % nGnb === gi);
+        const ueGap    = Math.min(55, 90 / Math.max(myUEs.length, 1));
+        const ueStart  = (pos[g.id]?.x || cx) - ueGap * (myUEs.length - 1) / 2;
+        myUEs.forEach((u, ui) => {
+            pos[u.id] = { x: ueStart + ui * ueGap, y: Y_UE };
+        });
+    });
+
+    return pos;
+}
+
+function buildGraph(data) {
+    // Filter out RAN, UPF, upf_instance from nodes and edges
+    const excluded = new Set(["ran", "upf", "upf_instance"]);
+
+    const nodes = data.nodes.filter(n => !excluded.has(n.id) && !excluded.has(n.type));
+    const edges = data.edges.filter(e =>
+        !excluded.has(e.source) && !excluded.has(e.target)
+    );
+
+    const positions = computePositions(nodes);
+    const elements  = [];
+
+    nodes.forEach(n => {
+        elements.push({
+            data: { id: n.id, label: n.label, type: n.type, status: n.status || "active" },
+            position: positions[n.id] || { x: 400, y: 300 }
+        });
+    });
+    edges.forEach(e => {
+        elements.push({ data: { source: e.source, target: e.target } });
+    });
+
+    if (cy) { cy.destroy(); cy = null; }
+
+    cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements,
+        layout: { name: 'preset' },
+        zoomingEnabled: false, userZoomingEnabled: false, panningEnabled: false,
+        style: [
+            { selector: 'edge',
+              style: { 'width': 1.5, 'line-color': '#63d6ff' }
+            },
+            // CORE
+            { selector: 'node[type="core"]',
+              style: {
+                'shape':'round-rectangle', 'width':85, 'height':70,
+                'background-color':'#18243a',
+                'background-image':'icons/server.png',
+                'background-fit':'contain','background-width':'60%','background-height':'60%',
+                'border-width':3, 'border-color':'#00ff88',
+                'label':'data(label)', 'text-valign':'top', 'text-margin-y':-10,
+                'font-size':'12px', 'font-weight':'bold', 'color':'white'
+              }
+            },
+            // IMS active
+            { selector: 'node[type="ims"][status="active"]',
+              style: {
+                'shape':'round-rectangle', 'width':80, 'height':65,
+                'background-color':'#18243a',
+                'background-image':'icons/phone.png',
+                'background-fit':'contain','background-width':'60%','background-height':'60%',
+                'border-width':3, 'border-color':'#00ff88',
+                'label':'data(label)', 'text-valign':'top', 'text-margin-y':-10,
+                'font-size':'12px', 'font-weight':'bold', 'color':'white'
+              }
+            },
+            // IMS inactive
+            { selector: 'node[type="ims"][status="inactive"]',
+              style: {
+                'shape':'round-rectangle', 'width':80, 'height':65,
+                'background-color':'#18243a',
+                'background-image':'icons/phone.png',
+                'background-fit':'contain','background-width':'60%','background-height':'60%',
+                'border-width':3, 'border-color':'#ff4d4d',
+                'label':'data(label)', 'text-valign':'top', 'text-margin-y':-10,
+                'font-size':'12px', 'font-weight':'bold', 'color':'white'
+              }
+            },
+            // gNB active
+            { selector: 'node[type="gnb"][status="active"]',
+              style: {
+                'shape':'ellipse', 'width':110, 'height':28,
+                'background-color':'#18243a', 'border-width':3, 'border-color':'#00ff88',
+                'label':'data(label)', 'font-size':'6px', 'color':'white',
+                'text-wrap':'none', 'text-valign':'center', 'text-halign':'center'
+              }
+            },
+            // gNB inactive
+            { selector: 'node[type="gnb"][status="inactive"]',
+              style: {
+                'shape':'ellipse', 'width':110, 'height':28,
+                'background-color':'#18243a', 'border-width':3, 'border-color':'#ff4d4d',
+                'label':'data(label)', 'font-size':'6px', 'color':'white',
+                'text-wrap':'none', 'text-valign':'center', 'text-halign':'center'
+              }
+            },
+            // UE active
+            { selector: 'node[type="ue"][status="active"]',
+              style: {
+                'shape':'ellipse', 'width':45, 'height':22,
+                'background-color':'#18243a', 'border-width':2, 'border-color':'#00ff88',
+                'label':'data(label)', 'font-size':'5px', 'color':'white',
+                'text-valign':'center', 'text-halign':'center'
+              }
+            },
+            // UE inactive
+            { selector: 'node[type="ue"][status="inactive"]',
+              style: {
+                'shape':'ellipse', 'width':45, 'height':22,
+                'background-color':'#18243a', 'border-width':2, 'border-color':'#ff4d4d',
+                'label':'data(label)', 'font-size':'5px', 'color':'white',
+                'text-valign':'center', 'text-halign':'center'
+              }
+            }
+        ]
+    });
+
+    cy.fit(undefined, 24);
+    cy.center();
+    document.getElementById('status').textContent =
+        'Updated: ' + new Date().toLocaleTimeString();
+}
+
+function fetchTopology() {
+    fetch(API)
+        .then(r => r.json())
+        .then(data => {
+            if (data.nodes && data.nodes.length > 0) buildGraph(data);
+        })
+        .catch(() => {
+            document.getElementById('status').textContent = 'Waiting for backend...';
+        });
+}
+
+window.addEventListener('load', function () {
+    fetchTopology();
+    setInterval(fetchTopology, POLL_MS);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARPAN — 5G Service Management and Orchestration Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">📡</span>
+                    <span class="logo-text">DARPAN</span>
+                </div>
+                <button class="toggle-btn" id="sidebar-toggle">⚡</button>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" data-section="overview">
+                    <span class="nav-icon">ℹ️</span>
+                    <span class="nav-label">Overview</span>
+                </button>
+                <button class="nav-item" data-section="topology">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-label">Topology</span>
+                </button>
+                <button class="nav-item" data-section="ran">
+                    <span class="nav-icon">📶</span>
+                    <span class="nav-label">RAN KPIs</span>
+                </button>
+                <button class="nav-item" data-section="core">
+                    <span class="nav-icon">🧠</span>
+                    <span class="nav-label">Core KPIs</span>
+                </button>
+                <button class="nav-item" data-section="traffic">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Traffic & UE</span>
+                </button>
+                <button class="nav-item" data-section="predictions">
+                    <span class="nav-icon">🔮</span>
+                    <span class="nav-label">Predictions</span>
+                </button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="status-dot offline" id="backend-status-dot"></span>
+                    <span class="status-text" id="backend-status-text">Backend: Disconnected</span>
+                </div>
+                <div class="freshness-timer" id="freshness-text">Waiting for data...</div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Alert & Notification Bar -->
+            <div class="alert-bar-container" id="alert-bar-container">
+                <div class="alert-bar normal" id="alert-bar">
+                    <span class="alert-pulse"></span>
+                    <span class="alert-icon">💚</span>
+                    <span class="alert-message" id="alert-message">All systems normal. 5G telemetry active.</span>
+                </div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="content-body">
+                
+                <!-- 1. OVERVIEW SECTION -->
+                <section class="content-section active" id="section-overview">
+                    <div class="overview-header">
+                        <h1>5G SMO Management Portal</h1>
+                        <p class="subtitle">Real-time Closed-Loop Orchestration & Intelligent Predictive Analytics</p>
+                    </div>
+
+                    <div class="overview-grid">
+                        <div class="overview-card main-card">
+                            <h2>About DARPAN</h2>
+                            <p><strong>DARPAN</strong> (Service Management and Orchestration) is an intelligent, containerized network visualization and analytics testbed built for 5G architectures. It aggregates real-time metrics across <strong>Physical (O-RU)</strong>, <strong>Radio Access (O-DU/CU)</strong>, and <strong>Core (5GC)</strong> networks, providing full network visibility and closed-loop control.</p>
+                            <p>By leveraging an in-memory <strong>EWMA baseline anomaly detector</strong> and <strong>least-squares regression forecasting</strong>, DARPAN predicts resource exhaustion and link degradation, allowing operators to proactively mitigate service disruptions before they impact subscribers.</p>
+                            <div class="project-tags">
+                                <span class="tag">O-RAN Alliance</span>
+                                <span class="tag">3GPP Release 17</span>
+                                <span class="tag">Predictive Maintenance</span>
+                                <span class="tag">Hackathon Prototype</span>
+                            </div>
+                        </div>
+
+                        <div class="overview-card highlight-card">
+                            <h3>Key Features</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <span class="feat-icon">🌐</span>
+                                    <div>
+                                        <h4>Dynamic Topology</h4>
+                                        <p>Interactive tree-graph rendering live connection edges, traffic flows, and dynamic cell outage indicators via Cytoscape.js.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="feat-icon">📉</span>
+                                    <div>
+                                        <h4>Unified KPI dashboarding</h4>
+                                        <p>High-resolution timeseries panels and gauges displaying throughput, RRC setup success, and core resource loads.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="feat-icon">💡</span>
+                                    <div>
+                                        <h4>Intelligent Forecasting</h4>
+                                        <p>Short-horizon forecasting models tracking drift metrics and generating automated alerts when values exceed 2.5 standard deviations.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. TOPOLOGY SECTION -->
+                <section class="content-section" id="section-topology">
+                    <div class="section-title-bar">
+                        <h2>Network Topology Graph</h2>
+                        <span class="update-stamp" id="update-topology">Polling topology...</span>
+                    </div>
+                    <div class="panel-container large-panel">
+                        <div class="skeleton-loader" id="skeleton-topology">
+                            <div class="skeleton-pulse"></div>
+                            <span>Initializing Cytoscape Canvas...</span>
+                        </div>
+                        <iframe id="iframe-topology" src="" frameborder="0" class="panel-iframe"></iframe>
+                    </div>
+                </section>
+
+                <!-- 3. RAN KPIs SECTION -->
+                <section class="content-section" id="section-ran">
+                    <div class="section-title-bar">
+                        <h2>Radio Access Network (RAN) Telemetry</h2>
+                        <span class="update-stamp" id="update-ran">Polling RAN metrics...</span>
+                    </div>
+                    <div class="panel-grid">
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-ran-1">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading Active gNBs Panel...</span>
+                            </div>
+                            <iframe id="iframe-ran-1" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-ran-2">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading RRC Success Rate...</span>
+                            </div>
+                            <iframe id="iframe-ran-2" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-ran-3">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading Handover Success Rate...</span>
+                            </div>
+                            <iframe id="iframe-ran-3" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. CORE KPIs SECTION -->
+                <section class="content-section" id="section-core">
+                    <div class="section-title-bar">
+                        <h2>5G Core (5GC) Telemetry</h2>
+                        <span class="update-stamp" id="update-core">Polling Core metrics...</span>
+                    </div>
+                    <div class="panel-grid">
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-core-1">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading Active Subscribers...</span>
+                            </div>
+                            <iframe id="iframe-core-1" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-core-2">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading Active Sessions...</span>
+                            </div>
+                            <iframe id="iframe-core-2" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-core-3">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading Core Resource Utilization...</span>
+                            </div>
+                            <iframe id="iframe-core-3" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. TRAFFIC & UE SECTION -->
+                <section class="content-section" id="section-traffic">
+                    <div class="section-title-bar">
+                        <h2>Network Traffic & User Equipment</h2>
+                        <span class="update-stamp" id="update-traffic">Polling Traffic metrics...</span>
+                    </div>
+                    <div class="panel-grid">
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-traffic-1">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading Downlink & Uplink Bitrates...</span>
+                            </div>
+                            <iframe id="iframe-traffic-1" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-traffic-2">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading Physical Resource Block (PRB) Util...</span>
+                            </div>
+                            <iframe id="iframe-traffic-2" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                        <div class="panel-container">
+                            <div class="skeleton-loader" id="skeleton-traffic-3">
+                                <div class="skeleton-pulse"></div>
+                                <span>Loading Top UE Throughput...</span>
+                            </div>
+                            <iframe id="iframe-traffic-3" src="" frameborder="0" class="panel-iframe"></iframe>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. PREDICTIONS SECTION -->
+                <section class="content-section" id="section-predictions">
+                    <div class="section-title-bar">
+                        <h2>Anomalies & ML Predictions</h2>
+                        <span class="update-stamp" id="update-predictions">Polling ML engine...</span>
+                    </div>
+                    
+                    <div class="predictions-container">
+                        <!-- Custom Prediction Cards populated by Javascript -->
+                        <div class="prediction-status-card">
+                            <h3>Real-time Anomaly Assessment (Z-Score Threshold: &plusmn;2.5)</h3>
+                            <div class="anomaly-grid" id="anomaly-cards-container">
+                                <div class="loading-placeholder">Fetching current baseline models...</div>
+                            </div>
+                        </div>
+
+                        <!-- Manual Anomaly Injector for Demos -->
+                        <div class="injector-card">
+                            <h3>Interactive Demonstration Controls</h3>
+                            <p>Simulate cell outage, network interference, or user congestion by injecting faults into O-RU, gNB, or 5GC simulators. The closed-loop anomaly detection engine will register the event within 10 seconds.</p>
+                            <div class="btn-group">
+                                <button class="inject-btn" data-node="ru">Degrade Radio Link (O-RU)</button>
+                                <button class="inject-btn" data-node="gnb">Congest RAN Scheduler (gNB)</button>
+                                <button class="inject-btn" data-node="core">Overload Core UPF (5GC)</button>
+                            </div>
+                            <div class="injector-status" id="injector-status-msg"></div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

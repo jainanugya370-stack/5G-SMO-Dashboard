@@ -1,0 +1,205 @@
+
+# ============================================================
+# DARPAN — 5G SMO Dashboard Stack
+#
+# Bring up the entire stack with:
+#   docker-compose up --build -d
+#
+# Access points once running:
+#   Dashboard Shell:  http://localhost:8080
+#   Topology Canvas:  http://localhost:8000
+#   Grafana:          http://localhost:3000  (admin / admin)
+#   Flask API:        http://localhost:5000
+# ============================================================
+
+networks:
+  smo-net:
+    driver: bridge
+
+volumes:
+  # Shared volume so both backend and collector access the same data files
+  kpi-data:
+  # Persistent Grafana storage (avoids losing sessions between restarts)
+  grafana-storage:
+
+services:
+
+  # ----------------------------------------------------------
+  # 1. Node Simulators — Physical, RAN, Core layers
+  # ----------------------------------------------------------
+  ru-sim:
+    build:
+      context: .
+      dockerfile: nodes/Dockerfile
+    command: python nodes/ru_sim.py
+    ports:
+      - "6001:6001"
+    networks:
+      - smo-net
+    restart: unless-stopped
+    healthcheck:
+      test: >
+        python -c
+        "import urllib.request; urllib.request.urlopen('http://localhost:6001/api/metrics', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  gnb-sim:
+    build:
+      context: .
+      dockerfile: nodes/Dockerfile
+    command: python nodes/gnb_sim.py
+    ports:
+      - "6002:6002"
+    networks:
+      - smo-net
+    restart: unless-stopped
+    healthcheck:
+      test: >
+        python -c
+        "import urllib.request; urllib.request.urlopen('http://localhost:6002/api/metrics', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  core-sim:
+    build:
+      context: .
+      dockerfile: nodes/Dockerfile
+    command: python nodes/core_sim.py
+    ports:
+      - "6003:6003"
+    networks:
+      - smo-net
+    restart: unless-stopped
+    healthcheck:
+      test: >
+        python -c
+        "import urllib.request; urllib.request.urlopen('http://localhost:6003/api/metrics', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ----------------------------------------------------------
+  # 2. Flask Backend — REST API and KPI state store
+  # ----------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount shared kpi-data volume so inventory.json and kpis.json persist
+      - kpi-data:/app/backend/data
+    networks:
+      - smo-net
+    restart: unless-stopped
+    environment:
+      PYTHONUNBUFFERED: "1"
+    healthcheck:
+      test: >
+        python -c
+        "import urllib.request; urllib.request.urlopen('http://localhost:5000/', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # ----------------------------------------------------------
+  # 3. Collector — Polls node simulators, forwards to backend
+  # ----------------------------------------------------------
+  collector:
+    build:
+      context: .
+      dockerfile: collector.Dockerfile
+    volumes:
+      # Shares the same data directory so collector can read inventory.json
+      - kpi-data:/app/backend/data
+    networks:
+      - smo-net
+    restart: unless-stopped
+    environment:
+      PYTHONUNBUFFERED: "1"
+      # Use Docker service names instead of localhost
+      FLASK_URL: http://backend:5000/api/update
+      RU_URL:    http://ru-sim:6001/api/metrics
+      GNB_URL:   http://gnb-sim:6002/api/metrics
+      CORE_URL:  http://core-sim:6003/api/metrics
+    depends_on:
+      backend:
+        condition: service_healthy
+      ru-sim:
+        condition: service_healthy
+      gnb-sim:
+        condition: service_healthy
+      core-sim:
+        condition: service_healthy
+
+  # ----------------------------------------------------------
+  # 4. Topology Canvas — Nginx static server
+  # ----------------------------------------------------------
+  topology-server:
+    build:
+      context: ./topology
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    networks:
+      - smo-net
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  # ----------------------------------------------------------
+  # 5. Dashboard Shell — Nginx static server
+  # ----------------------------------------------------------
+  dashboard-shell-server:
+    build:
+      context: ./dashboard-shell
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    networks:
+      - smo-net
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+      topology-server:
+        condition: service_started
+
+  # ----------------------------------------------------------
+  # 6. Grafana — Visualization with auto-provisioned dashboard
+  # ----------------------------------------------------------
+  grafana:
+    image: grafana/grafana:10.4.3
+    ports:
+      - "3000:3000"
+    volumes:
+      # Persistent Grafana database (users, sessions, etc.)
+      - grafana-storage:/var/lib/grafana
+      # Custom config: allow_embedding = true, CSP disabled
+      - ./grafana/custom.ini:/etc/grafana/grafana.ini:ro
+      # Auto-provision datasource (marcusolsson-json-datasource -> backend:5000)
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      # Auto-provision dashboard loader config
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      # Mount the classic-format dashboard JSON (converted from API-v2 export)
+      - ./5G_SMO_Dashboard_Provisioned.json:/var/lib/grafana/dashboards/5G_SMO_Dashboard_Provisioned.json:ro
+    networks:
+      - smo-net
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_USER: admin
+      # Install the JSON datasource plugin at container start
+      GF_INSTALL_PLUGINS: marcusolsson-json-datasource
+    depends_on:
+      backend:
+        condition: service_healthy
