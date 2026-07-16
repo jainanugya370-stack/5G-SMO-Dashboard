@@ -77,8 +77,8 @@ function loadSectionIframes(sectionId) {
         const iframe = document.getElementById('iframe-topology');
         const skeleton = document.getElementById('skeleton-topology');
         if (iframe && iframe.src === '') {
-            iframe.src = TOPOLOGY_BASE;
             setupIframeLoadingListener(iframe, skeleton);
+            iframe.src = TOPOLOGY_BASE;
         }
         return;
     }
@@ -107,8 +107,8 @@ function loadSectionIframes(sectionId) {
             // Format for Grafana single panel embeds (d-solo)
             const embedUrl = `${GRAFANA_BASE}/d-solo/${GRAFANA_DASHBOARD_UID}/5g-smo-dashboard?orgId=1&panelId=${panelId}&theme=dark&refresh=5s`;
             
-            iframe.src = embedUrl;
             setupIframeLoadingListener(iframe, skeleton);
+            iframe.src = embedUrl;
         }
     });
 }

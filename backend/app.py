@@ -4,6 +4,10 @@ import json, os
 from collections import deque
 from datetime import datetime
 from predictor import detect_anomalies, forecast
+from lstm_predictor import init_lstm_predictor, predict_lstm
+
+# Initialize LSTM predictor at module load time
+init_lstm_predictor()
 
 app = Flask(__name__)
 CORS(app)
@@ -134,15 +138,54 @@ def topology_legacy():
     return topology()
 
 @app.route("/api/predict/anomaly")
+@app.route("/api/predict/anomaly/")
+@app.route("/api/anomaly")
+@app.route("/api/anomaly/")
 def predict_anomaly():
     """Per-KPI EWMA baseline, z-score, and anomaly flag over current history."""
     return jsonify(detect_anomalies(list(history)))
+
+@app.route("/api/predict/anomaly/table")
+@app.route("/api/predict/anomaly/table/")
+def predict_anomaly_table():
+    """Flat array of anomaly records for Grafana Table/Stat visualizations."""
+    raw_anomalies = detect_anomalies(list(history))
+    if isinstance(raw_anomalies, dict) and raw_anomalies.get("status") == "warming_up":
+        return jsonify([])
+    flat_records = []
+    for field, metrics in raw_anomalies.items():
+        record = {
+            "field": field,
+            "value": metrics.get("value"),
+            "baseline": metrics.get("baseline"),
+            "std": metrics.get("std"),
+            "z_score": metrics.get("z_score"),
+            "is_anomaly": metrics.get("is_anomaly")
+        }
+        flat_records.append(record)
+    return jsonify(flat_records)
 
 @app.route("/api/predict/forecast/<field>")
 def predict_forecast(field):
     """Short-horizon linear forecast for one KPI field, e.g. /api/predict/forecast/latency_ms"""
     horizon = int(request.args.get("horizon", 6))
     return jsonify(forecast(list(history), field, horizon=horizon))
+
+@app.route("/api/predict/lstm/<field>")
+def predict_lstm_route(field):
+    """LSTM model forecast for one KPI field (downlink_bitrate or uplink_bitrate)."""
+    horizon = int(request.args.get("horizon", 5))
+    field_map = {
+        "downlink_bitrate": "downlink_bitrate",
+        "uplink_bitrate": "uplink_bitrate",
+        "dl_bitrate_mbps": "downlink_bitrate",
+        "ul_bitrate_mbps": "uplink_bitrate"
+    }
+    target_field = field_map.get(field)
+    if not target_field:
+        return jsonify({"status": "error", "message": f"Unsupported LSTM prediction field: '{field}'"}), 400
+        
+    return jsonify(predict_lstm(list(history), target_field, horizon=horizon))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)

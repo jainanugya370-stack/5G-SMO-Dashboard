@@ -3,7 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install dependencies
-RUN pip install --no-cache-dir flask flask-cors numpy requests
+RUN pip install --no-cache-dir flask flask-cors numpy requests tensorflow-cpu scikit-learn
 
 # Copy backend files
 COPY backend/ /app/backend/

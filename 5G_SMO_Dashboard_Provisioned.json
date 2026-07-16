@@ -1,1227 +1,1483 @@
-﻿{
-    "id":  null,
-    "uid":  "68c20f8d-78cc-4366-8e7e-ddeeea51b77b",
-    "title":  "5G SMO Dashboard",
-    "tags":  [
-
-             ],
-    "timezone":  "browser",
-    "schemaVersion":  39,
-    "version":  81,
-    "refresh":  "5s",
-    "time":  {
-                 "from":  "now-6h",
-                 "to":  "now"
-             },
-    "panels":  [
-                   {
-                       "id":  12,
-                       "title":  "List",
-                       "type":  "dashlist",
-                       "gridPos":  {
-                                       "x":  0,
-                                       "y":  0,
-                                       "w":  4,
-                                       "h":  39
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "folderUID":  "",
-                                       "includeVars":  false,
-                                       "keepTime":  false,
-                                       "maxItems":  10,
-                                       "query":  "",
-                                       "showFolderNames":  true,
-                                       "showHeadings":  true,
-                                       "showRecentlyViewed":  false,
-                                       "showSearch":  false,
-                                       "showStarred":  true,
-                                       "tags":  [
-
-                                                ]
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  3,
-                       "title":  "Active gNBs",
-                       "type":  "stat",
-                       "gridPos":  {
-                                       "x":  4,
-                                       "y":  0,
-                                       "w":  4,
-                                       "h":  3
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$.active_gnbs",
-                                                              "name":  "Active gNBs",
-                                                              "type":  "number"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/kpis"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "colorMode":  "value",
-                                       "graphMode":  "area",
-                                       "justifyMode":  "auto",
-                                       "orientation":  "auto",
-                                       "percentChangeColorMode":  "standard",
-                                       "reduceOptions":  {
-                                                             "calcs":  [
-                                                                           "max"
-                                                                       ],
-                                                             "fields":  "",
-                                                             "values":  false
-                                                         },
-                                       "showPercentChange":  false,
-                                       "text":  {
-
-                                                },
-                                       "textMode":  "auto",
-                                       "wideLayout":  true
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "decimals":  0,
-                                                            "min":  0,
-                                                            "max":  2,
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  2,
-                       "title":  "Active Subscribers",
-                       "type":  "stat",
-                       "gridPos":  {
-                                       "x":  8,
-                                       "y":  0,
-                                       "w":  4,
-                                       "h":  3
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$.active_subscribers",
-                                                              "name":  "Active Subscribers",
-                                                              "type":  "number"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/kpis"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "colorMode":  "value",
-                                       "graphMode":  "area",
-                                       "justifyMode":  "auto",
-                                       "orientation":  "auto",
-                                       "percentChangeColorMode":  "standard",
-                                       "reduceOptions":  {
-                                                             "calcs":  [
-                                                                           "lastNotNull"
-                                                                       ],
-                                                             "fields":  "",
-                                                             "values":  false
-                                                         },
-                                       "showPercentChange":  false,
-                                       "text":  {
-
-                                                },
-                                       "textMode":  "value",
-                                       "wideLayout":  true
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "decimals":  0,
-                                                            "min":  0,
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  4,
-                       "title":  "Active Sessions",
-                       "type":  "stat",
-                       "gridPos":  {
-                                       "x":  12,
-                                       "y":  0,
-                                       "w":  4,
-                                       "h":  3
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$.active_sessions",
-                                                              "type":  "number",
-                                                              "name":  "Active Sessions"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/kpis"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "colorMode":  "value",
-                                       "graphMode":  "area",
-                                       "justifyMode":  "auto",
-                                       "orientation":  "auto",
-                                       "percentChangeColorMode":  "standard",
-                                       "reduceOptions":  {
-                                                             "calcs":  [
-                                                                           "lastNotNull"
-                                                                       ],
-                                                             "fields":  "",
-                                                             "values":  false
-                                                         },
-                                       "showPercentChange":  false,
-                                       "textMode":  "auto",
-                                       "wideLayout":  true
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "decimals":  0,
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      },
-                                                            "fieldMinMax":  false
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  6,
-                       "title":  "Downlink Bitrate",
-                       "type":  "stat",
-                       "gridPos":  {
-                                       "x":  16,
-                                       "y":  0,
-                                       "w":  4,
-                                       "h":  3
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  300,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$.downlink_bitrate",
-                                                              "type":  "number",
-                                                              "name":  "Downlink Bitrate"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/kpis"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "colorMode":  "value",
-                                       "graphMode":  "area",
-                                       "justifyMode":  "auto",
-                                       "orientation":  "auto",
-                                       "percentChangeColorMode":  "standard",
-                                       "reduceOptions":  {
-                                                             "calcs":  [
-                                                                           "lastNotNull"
-                                                                       ],
-                                                             "fields":  "",
-                                                             "values":  false
-                                                         },
-                                       "showPercentChange":  false,
-                                       "textMode":  "auto",
-                                       "wideLayout":  true
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  5,
-                       "title":  "Uplink Bitrate",
-                       "type":  "stat",
-                       "gridPos":  {
-                                       "x":  20,
-                                       "y":  0,
-                                       "w":  4,
-                                       "h":  3
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  300,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$.uplink_bitrate",
-                                                              "type":  "number",
-                                                              "name":  "Uplink Bitrate"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/kpis"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "colorMode":  "value",
-                                       "graphMode":  "area",
-                                       "justifyMode":  "auto",
-                                       "orientation":  "auto",
-                                       "percentChangeColorMode":  "standard",
-                                       "reduceOptions":  {
-                                                             "calcs":  [
-                                                                           "lastNotNull"
-                                                                       ],
-                                                             "fields":  "",
-                                                             "values":  false
-                                                         },
-                                       "showPercentChange":  false,
-                                       "textMode":  "auto",
-                                       "wideLayout":  true
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  7,
-                       "title":  "5G Network Topology",
-                       "type":  "text",
-                       "gridPos":  {
-                                       "x":  4,
-                                       "y":  3,
-                                       "w":  13,
-                                       "h":  12
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "code":  {
-                                                    "language":  "plaintext",
-                                                    "showLineNumbers":  false,
-                                                    "showMiniMap":  false
-                                                },
-                                       "content":  "\u003cscript\u003e\n(function() {\n  var iframe = document.createElement(\u0027iframe\u0027);\n  iframe.src = \u0027http://localhost:8000/index.html?t=\u0027 + Date.now();\n  iframe.width = \u0027100%\u0027;\n  iframe.height = \u0027500px\u0027;\n  iframe.style = \u0027border:none; display:block;\u0027;\n  iframe.setAttribute(\u0027sandbox\u0027, \u0027allow-scripts allow-same-origin\u0027);\n  document.currentScript.parentNode.appendChild(iframe);\n})();\n\u003c/script\u003e",
-                                       "mode":  "html"
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  8,
-                       "title":  "Traffic Utilization",
-                       "type":  "gauge",
-                       "gridPos":  {
-                                       "x":  17,
-                                       "y":  3,
-                                       "w":  7,
-                                       "h":  12
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  300,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$.traffic_utilization",
-                                                              "type":  "number",
-                                                              "name":  "Traffic Utilization"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/kpis"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "barShape":  "flat",
-                                       "barWidthFactor":  0.5,
-                                       "effects":  {
-                                                       "barGlow":  false,
-                                                       "centerGlow":  false,
-                                                       "gradient":  true
-                                                   },
-                                       "endpointMarker":  "point",
-                                       "minVizHeight":  75,
-                                       "minVizWidth":  75,
-                                       "orientation":  "auto",
-                                       "reduceOptions":  {
-                                                             "calcs":  [
-                                                                           "lastNotNull"
-                                                                       ],
-                                                             "fields":  "",
-                                                             "values":  false
-                                                         },
-                                       "segmentCount":  1,
-                                       "segmentSpacing":  0.3,
-                                       "shape":  "gauge",
-                                       "showThresholdLabels":  false,
-                                       "showThresholdMarkers":  true,
-                                       "sizing":  "auto",
-                                       "sparkline":  true,
-                                       "textMode":  "auto"
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  11,
-                       "title":  "RAN Connection Status ",
-                       "type":  "timeseries",
-                       "gridPos":  {
-                                       "x":  4,
-                                       "y":  15,
-                                       "w":  10,
-                                       "h":  8
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$[*].timestamp",
-                                                              "name":  "Time",
-                                                              "type":  "time"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$[*].active_gnbs",
-                                                              "name":  "Active gNBs",
-                                                              "type":  "number"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$[*].rrc_success_rate",
-                                                              "name":  "RRC Success Rate",
-                                                              "type":  "number"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/history"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "annotations":  {
-                                                           "clustering":  -1,
-                                                           "multiLane":  false
-                                                       },
-                                       "legend":  {
-                                                      "calcs":  [
-
-                                                                ],
-                                                      "displayMode":  "list",
-                                                      "placement":  "bottom",
-                                                      "showLegend":  true
-                                                  },
-                                       "tooltip":  {
-                                                       "hideZeros":  false,
-                                                       "mode":  "single",
-                                                       "sort":  "none"
-                                                   }
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "palette-classic"
-                                                                      },
-                                                            "custom":  {
-                                                                           "axisBorderShow":  false,
-                                                                           "axisCenteredZero":  false,
-                                                                           "axisColorMode":  "text",
-                                                                           "axisLabel":  "",
-                                                                           "axisPlacement":  "auto",
-                                                                           "barAlignment":  0,
-                                                                           "barWidthFactor":  0.6,
-                                                                           "drawStyle":  "line",
-                                                                           "fillOpacity":  0,
-                                                                           "gradientMode":  "none",
-                                                                           "hideFrom":  {
-                                                                                            "legend":  false,
-                                                                                            "tooltip":  false,
-                                                                                            "viz":  false
-                                                                                        },
-                                                                           "insertNulls":  false,
-                                                                           "lineInterpolation":  "linear",
-                                                                           "lineWidth":  1,
-                                                                           "pointSize":  5,
-                                                                           "scaleDistribution":  {
-                                                                                                     "type":  "linear"
-                                                                                                 },
-                                                                           "showPoints":  "auto",
-                                                                           "showValues":  false,
-                                                                           "spanNulls":  false,
-                                                                           "stacking":  {
-                                                                                            "group":  "A",
-                                                                                            "mode":  "none"
-                                                                                        },
-                                                                           "thresholdsStyle":  {
-                                                                                                   "mode":  "off"
-                                                                                               }
-                                                                       }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  9,
-                       "title":  "Uplink \u0026 Downlink Traffic",
-                       "type":  "timeseries",
-                       "gridPos":  {
-                                       "x":  14,
-                                       "y":  15,
-                                       "w":  10,
-                                       "h":  8
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$[*].timestamp",
-                                                              "name":  "Time",
-                                                              "type":  "time"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$[*].downlink_bitrate",
-                                                              "name":  "Downlink (Mbps)",
-                                                              "type":  "number"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$[*].uplink_bitrate",
-                                                              "name":  "Uplink (Mbps)",
-                                                              "type":  "number"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/history"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "annotations":  {
-                                                           "clustering":  -1,
-                                                           "multiLane":  false
-                                                       },
-                                       "legend":  {
-                                                      "calcs":  [
-
-                                                                ],
-                                                      "displayMode":  "list",
-                                                      "placement":  "bottom",
-                                                      "showLegend":  true
-                                                  },
-                                       "tooltip":  {
-                                                       "hideZeros":  false,
-                                                       "mode":  "single",
-                                                       "sort":  "none"
-                                                   }
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "palette-classic"
-                                                                      },
-                                                            "custom":  {
-                                                                           "axisBorderShow":  false,
-                                                                           "axisCenteredZero":  false,
-                                                                           "axisColorMode":  "text",
-                                                                           "axisLabel":  "",
-                                                                           "axisPlacement":  "auto",
-                                                                           "barAlignment":  0,
-                                                                           "barWidthFactor":  0.6,
-                                                                           "drawStyle":  "line",
-                                                                           "fillOpacity":  0,
-                                                                           "gradientMode":  "none",
-                                                                           "hideFrom":  {
-                                                                                            "legend":  false,
-                                                                                            "tooltip":  false,
-                                                                                            "viz":  false
-                                                                                        },
-                                                                           "insertNulls":  false,
-                                                                           "lineInterpolation":  "linear",
-                                                                           "lineWidth":  1,
-                                                                           "pointSize":  5,
-                                                                           "scaleDistribution":  {
-                                                                                                     "type":  "linear"
-                                                                                                 },
-                                                                           "showPoints":  "auto",
-                                                                           "showValues":  false,
-                                                                           "spanNulls":  false,
-                                                                           "stacking":  {
-                                                                                            "group":  "A",
-                                                                                            "mode":  "none"
-                                                                                        },
-                                                                           "thresholdsStyle":  {
-                                                                                                   "mode":  "off"
-                                                                                               }
-                                                                       }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  15,
-                       "title":  "Core Cluster Statistics",
-                       "type":  "state-timeline",
-                       "gridPos":  {
-                                       "x":  4,
-                                       "y":  23,
-                                       "w":  6,
-                                       "h":  10
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$[*].timestamp",
-                                                              "name":  "Time",
-                                                              "type":  "time"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$[*].active_subscribers",
-                                                              "name":  "Active Subscribers",
-                                                              "type":  "number"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$[*].active_sessions",
-                                                              "name":  "Active Sessions",
-                                                              "type":  "number"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/history"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "alignValue":  "left",
-                                       "annotations":  {
-                                                           "clustering":  -1,
-                                                           "multiLane":  false
-                                                       },
-                                       "legend":  {
-                                                      "displayMode":  "list",
-                                                      "placement":  "bottom",
-                                                      "showLegend":  true
-                                                  },
-                                       "mergeValues":  true,
-                                       "rowHeight":  0.9,
-                                       "showValue":  "auto",
-                                       "tooltip":  {
-                                                       "hideZeros":  false,
-                                                       "mode":  "single",
-                                                       "sort":  "none"
-                                                   }
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      },
-                                                            "custom":  {
-                                                                           "axisPlacement":  "auto",
-                                                                           "fillOpacity":  70,
-                                                                           "hideFrom":  {
-                                                                                            "legend":  false,
-                                                                                            "tooltip":  false,
-                                                                                            "viz":  false
-                                                                                        },
-                                                                           "insertNulls":  false,
-                                                                           "lineWidth":  0,
-                                                                           "spanNulls":  false
-                                                                       }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  13,
-                       "title":  "Core Resource Utilization",
-                       "type":  "bargauge",
-                       "gridPos":  {
-                                       "x":  10,
-                                       "y":  23,
-                                       "w":  7,
-                                       "h":  10
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$.core_resource_utilization_pct",
-                                                              "name":  "Core Resource Utilization",
-                                                              "type":  "number"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/kpis"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "displayMode":  "gradient",
-                                       "legend":  {
-                                                      "calcs":  [
-
-                                                                ],
-                                                      "displayMode":  "list",
-                                                      "placement":  "bottom",
-                                                      "showLegend":  false
-                                                  },
-                                       "maxVizHeight":  300,
-                                       "minVizHeight":  16,
-                                       "minVizWidth":  8,
-                                       "namePlacement":  "auto",
-                                       "orientation":  "auto",
-                                       "reduceOptions":  {
-                                                             "calcs":  [
-                                                                           "lastNotNull"
-                                                                       ],
-                                                             "fields":  "",
-                                                             "values":  false
-                                                         },
-                                       "showUnfilled":  true,
-                                       "sizing":  "auto",
-                                       "valueMode":  "color"
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  14,
-                       "title":  "Top UE Throughput",
-                       "type":  "table",
-                       "gridPos":  {
-                                       "x":  17,
-                                       "y":  23,
-                                       "w":  7,
-                                       "h":  10
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$[*].timestamp",
-                                                              "name":  "Time",
-                                                              "type":  "time"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$[*].ue_throughput_mbps",
-                                                              "name":  "Throughput (Mbps)",
-                                                              "type":  "number"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/history"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "cellHeight":  "sm",
-                                       "frameIndex":  0,
-                                       "showHeader":  true
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      },
-                                                            "custom":  {
-                                                                           "align":  "auto",
-                                                                           "cellOptions":  {
-                                                                                               "type":  "auto"
-                                                                                           },
-                                                                           "footer":  {
-                                                                                          "reducers":  [
-
-                                                                                                       ]
-                                                                                      },
-                                                                           "inspect":  false
-                                                                       }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   },
-                   {
-                       "id":  10,
-                       "title":  "Fault Summary",
-                       "type":  "table",
-                       "gridPos":  {
-                                       "x":  4,
-                                       "y":  33,
-                                       "w":  20,
-                                       "h":  6
-                                   },
-                       "datasource":  {
-                                          "uid":  "bfnbcxajfec5cb",
-                                          "type":  "marcusolsson-json-datasource"
-                                      },
-                       "targets":  [
-                                       {
-                                           "refId":  "A",
-                                           "hide":  false,
-                                           "datasource":  {
-                                                              "uid":  "bfnbcxajfec5cb",
-                                                              "type":  "marcusolsson-json-datasource"
-                                                          },
-                                           "cacheDurationSeconds":  0,
-                                           "fields":  [
-                                                          {
-                                                              "jsonPath":  "$.nodes[*].id",
-                                                              "name":  "Node ID",
-                                                              "type":  "string"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$.nodes[*].label",
-                                                              "name":  "Label",
-                                                              "type":  "string"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$.nodes[*].type",
-                                                              "name":  "Type",
-                                                              "type":  "string"
-                                                          },
-                                                          {
-                                                              "jsonPath":  "$.nodes[*].status",
-                                                              "name":  "Status",
-                                                              "type":  "string"
-                                                          }
-                                                      ],
-                                           "method":  "GET",
-                                           "queryParams":  "",
-                                           "urlPath":  "/api/topology"
-                                       }
-                                   ],
-                       "transformations":  [
-
-                                           ],
-                       "options":  {
-                                       "cellHeight":  "sm",
-                                       "showHeader":  true
-                                   },
-                       "fieldConfig":  {
-                                           "defaults":  {
-                                                            "thresholds":  {
-                                                                               "mode":  "absolute",
-                                                                               "steps":  [
-                                                                                             {
-                                                                                                 "value":  0,
-                                                                                                 "color":  "green"
-                                                                                             },
-                                                                                             {
-                                                                                                 "value":  80,
-                                                                                                 "color":  "red"
-                                                                                             }
-                                                                                         ]
-                                                                           },
-                                                            "color":  {
-                                                                          "mode":  "thresholds"
-                                                                      },
-                                                            "custom":  {
-                                                                           "align":  "auto",
-                                                                           "cellOptions":  {
-                                                                                               "type":  "auto"
-                                                                                           },
-                                                                           "footer":  {
-                                                                                          "reducers":  [
-
-                                                                                                       ]
-                                                                                      },
-                                                                           "inspect":  false
-                                                                       }
-                                                        },
-                                           "overrides":  [
-
-                                                         ]
-                                       },
-                       "description":  ""
-                   }
-               ]
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 2,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.active_gnbs",
+              "name": "Active gNBs",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/kpis"
+        }
+      ],
+      "title": "Active gNBs",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 5,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.active_subscribers",
+              "name": "Active Subscribers",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/kpis"
+        }
+      ],
+      "title": "Active Subscribers",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 10,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.active_sessions",
+              "name": "Active Sessions",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/kpis"
+        }
+      ],
+      "title": "Active Sessions",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 15,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.downlink_bitrate",
+              "name": "Downlink Bitrate",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/kpis"
+        }
+      ],
+      "title": "Downlink Bitrate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.uplink_bitrate",
+              "name": "Uplink Bitrate",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/kpis"
+        }
+      ],
+      "title": "Uplink Bitrate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 14,
+        "w": 14,
+        "x": 0,
+        "y": 3
+      },
+      "id": 7,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<script>\n(function() {\n  var iframe = document.createElement('iframe');\n  iframe.src = 'http://localhost:8000/index.html?t=' + Date.now();\n  iframe.width = '100%';\n  iframe.height = '500px';\n  iframe.style = 'border:none; display:block;';\n  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');\n  document.currentScript.parentNode.appendChild(iframe);\n})();\n</script>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.4.3",
+      "title": "5G Network Topology",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 10,
+        "x": 14,
+        "y": 3
+      },
+      "id": 8,
+      "options": {
+        "barShape": "flat",
+        "barWidthFactor": 0.5,
+        "effects": {
+          "barGlow": false,
+          "centerGlow": false,
+          "gradient": true
+        },
+        "endpointMarker": "point",
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "segmentCount": 1,
+        "segmentSpacing": 0.3,
+        "shape": "gauge",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "sparkline": true,
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.traffic_utilization",
+              "name": "Traffic Utilization",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/kpis"
+        }
+      ],
+      "title": "Traffic Utilization",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 11,
+      "options": {
+        "annotations": {
+          "clustering": -1,
+          "multiLane": false
+        },
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$[*].timestamp",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$[*].active_gnbs",
+              "name": "Active gNBs",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$[*].rrc_success_rate",
+              "name": "RRC Success Rate",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/history"
+        }
+      ],
+      "title": "RAN Connection Status ",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 9,
+      "options": {
+        "annotations": {
+          "clustering": -1,
+          "multiLane": false
+        },
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$[*].timestamp",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$[*].downlink_bitrate",
+              "name": "Downlink (Mbps)",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$[*].uplink_bitrate",
+              "name": "Uplink (Mbps)",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/history"
+        }
+      ],
+      "title": "Uplink & Downlink Traffic",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 8,
+        "x": 0,
+        "y": 27
+      },
+      "id": 15,
+      "options": {
+        "alignValue": "left",
+        "annotations": {
+          "clustering": -1,
+          "multiLane": false
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$[*].timestamp",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$[*].active_subscribers",
+              "name": "Active Subscribers",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$[*].active_sessions",
+              "name": "Active Sessions",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/history"
+        }
+      ],
+      "title": "Core Cluster Statistics",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 8,
+        "x": 8,
+        "y": 27
+      },
+      "id": 13,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.core_resource_utilization_pct",
+              "name": "Core Resource Utilization",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/kpis"
+        }
+      ],
+      "title": "Core Resource Utilization",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 8,
+        "x": 16,
+        "y": 27
+      },
+      "id": 14,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$[*].timestamp",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$[*].ue_throughput_mbps",
+              "name": "Throughput (Mbps)",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/history"
+        }
+      ],
+      "title": "Top UE Throughput",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 38
+      },
+      "id": 10,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.nodes[*].id",
+              "name": "Node ID",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.nodes[*].label",
+              "name": "Label",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.nodes[*].type",
+              "name": "Type",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.nodes[*].status",
+              "name": "Status",
+              "type": "string"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/topology"
+        }
+      ],
+      "title": "Fault Summary",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "id": 16,
+      "options": {
+        "cellHeight": "sm",
+        "colorMode": "value",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showHeader": true,
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$[*].field",
+              "name": "KPI Field",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$[*].value",
+              "name": "Current Value",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$[*].baseline",
+              "name": "Baseline Value",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$[*].std",
+              "name": "Std Dev",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$[*].z_score",
+              "name": "Z-Score",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$[*].is_anomaly",
+              "name": "Is Anomaly",
+              "type": "boolean"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/predict/anomaly/table"
+        }
+      ],
+      "title": "Anomaly Detector",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 52
+      },
+      "id": 17,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "showHeader": true,
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.timestamps[*]",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.predicted[*]",
+              "name": "Predicted Downlink",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/predict/lstm/downlink_bitrate"
+        }
+      ],
+      "title": "LSTM Downlink Bitrate Forecast",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "bfnbcxajfec5cb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 52
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "bfnbcxajfec5cb"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.timestamps[*]",
+              "name": "Time",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.predicted[*]",
+              "name": "Predicted Uplink",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/api/predict/lstm/uplink_bitrate"
+        }
+      ],
+      "title": "LSTM Uplink Bitrate Forecast",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now+5m"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "5G SMO Dashboard",
+  "uid": "68c20f8d-78cc-4366-8e7e-ddeeea51b77b",
+  "version": 11,
+  "weekStart": ""
 }

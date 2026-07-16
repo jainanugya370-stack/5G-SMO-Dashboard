@@ -196,7 +196,7 @@ services:
       - smo-net
     restart: unless-stopped
     environment:
-      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin123
       GF_SECURITY_ADMIN_USER: admin
       # Install the JSON datasource plugin at container start
       GF_INSTALL_PLUGINS: marcusolsson-json-datasource
