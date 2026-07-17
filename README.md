@@ -1,4 +1,4 @@
-# 📡 DARPAN – 5G Service Management & Orchestration (SMO) Dashboard
+# 📡 5G Service Management & Orchestration (SMO) Dashboard
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Flask](https://img.shields.io/badge/Flask-3.x-black)
@@ -7,7 +7,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Compose-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-DARPAN is a **containerized 5G Service Management and Orchestration (SMO) Dashboard** that simulates a live telecom network, collects telemetry from multiple network elements, performs **real-time anomaly detection**, generates **AI-powered bitrate forecasts using LSTM**, and visualizes the complete network through **Grafana dashboards** and an interactive **Cytoscape.js topology**.
+It is a **containerized 5G Service Management and Orchestration (SMO) Dashboard** that simulates a live telecom network, collects telemetry from multiple network elements, performs **real-time anomaly detection**, generates **AI-powered bitrate forecasts using LSTM**, and visualizes the complete network through **Grafana dashboards** and an interactive **Cytoscape.js topology**.
 
 ---
 
